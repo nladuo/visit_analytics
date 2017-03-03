@@ -9,4 +9,3 @@ prepare:
 
 build:
 	go build
-

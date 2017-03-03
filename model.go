@@ -15,7 +15,7 @@ type Page struct {
 
 type DailyRecord struct {
 	Id    int `gorm:"primary_key";"AUTO_INCREMENT"`
-	Url   int
+	Url   string
 	Date  string
 	Count int
 }
@@ -25,4 +25,5 @@ type Visit struct {
 	UserAgent string
 	Referer   string
 	Title     string
+	Host      string
 }

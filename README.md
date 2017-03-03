@@ -14,7 +14,7 @@ make prepare 		# 下载库文件
 
 ### 创建数据库
 ``` sql
-CREATE DATABASE `visit_analytics` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+CREATE DATABASE IF NOT EXISTS `visit_analytics` DEFAULT CHARSET utf8 COLLATE utf8_general_ci;
 ```
 
 ### 配置数据库

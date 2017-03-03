@@ -1,11 +1,8 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
-	"strings"
 
-	"github.com/PuerkitoBio/goquery"
 	"github.com/gin-gonic/gin"
 )
 
@@ -25,8 +22,9 @@ func main() {
 	})
 
 	router.StaticFile("/test", "./www/test.html")
+	router.StaticFile("/test2", "./www/test.html")
 
-	go func() {
+	go func() { //handle visit record
 		for {
 			visit := <-visit_chan
 			HandleVisit(visit)
@@ -36,33 +34,24 @@ func main() {
 	router.Run(":3000")
 }
 
-// 根据referer记录到数据库
+// record according to Request.Referer()
 func analyse(c *gin.Context) {
-	if len(c.Request.Referer()) == 0 {
+	referer := c.Request.Referer()
+	if len(referer) == 0 {
 		return
 	}
 
-	title := getTitle(c.Request.Referer())
-	fmt.Println(title)
+	title := GetTitle(referer)
+	host_name := GetHostName(referer)
+	if host_name == "" {
+		return
+	}
 
 	visit_chan <- Visit{
 		ClientIp:  c.ClientIP(),
 		UserAgent: c.Request.UserAgent(),
-		Referer:   c.Request.Referer(),
+		Referer:   referer,
 		Title:     title,
+		Host:      host_name,
 	}
-}
-
-// 获取文章标题
-func getTitle(url string) string {
-	doc, err := goquery.NewDocument(url)
-	if err != nil {
-		return url
-	}
-	title := doc.Find("title").Text()
-	title = strings.Trim(title, " ")
-	if len(title) == 0 {
-		return url
-	}
-	return title
 }
