@@ -25,7 +25,7 @@ const (
 	DB_PASS = "root"
 	DB_HOST = "localhost"
 	DB_PORT = "3306"
-	DBNAME  = "vist_analytics"
+	DBNAME  = "visit_analytics"
 )
 ```
 
