@@ -2,12 +2,6 @@ package main
 
 import "time"
 
-func HandleVisit(visit Visit) {
-	recordHost(visit)
-	recordPage(visit)
-	recordDailyRecord(visit)
-}
-
 func recordHost(visit Visit) {
 	var count int
 	db := GetDB()
@@ -48,4 +42,12 @@ func recordDailyRecord(visit Visit) {
 		daily_record.Count += 1
 		db.Save(&daily_record)
 	}
+}
+
+func findPage(url string) Page {
+	var page Page
+	db := GetDB()
+	db.Where("url = ?", url).Find(&page)
+
+	return page
 }

@@ -6,6 +6,7 @@ import (
 	"github.com/PuerkitoBio/goquery"
 )
 
+// parse hostname from url
 func GetHostName(url string) string {
 	host_name := strings.TrimLeft(url, "http://")
 	host_name = strings.TrimLeft(host_name, "https://")
@@ -17,11 +18,10 @@ func GetHostName(url string) string {
 	return strs[0]
 }
 
+//
 func GetTitle(url string) string {
 	// get title from database
-	var page Page
-	db := GetDB()
-	db.Where("url = ?", url).Find(&page)
+	page := findPage(url)
 	if page.Id != 0 {
 		return page.Title
 	}

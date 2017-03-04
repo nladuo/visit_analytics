@@ -1,10 +1,12 @@
 package main
 
+// table object mapping: hosts
 type Host struct {
 	Id       int    `gorm:"primary_key";"AUTO_INCREMENT"`
 	HostName string `gorm:"unique"`
 }
 
+// table object mapping: pages
 type Page struct {
 	Id         int `gorm:"primary_key";"AUTO_INCREMENT"`
 	Host       string
@@ -13,6 +15,7 @@ type Page struct {
 	TotalCount int
 }
 
+// table object mapping: daily_records
 type DailyRecord struct {
 	Id    int `gorm:"primary_key";"AUTO_INCREMENT"`
 	Url   string

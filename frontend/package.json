@@ -1,0 +1,30 @@
+{
+  "name": "visit_analytics_frontend",
+  "version": "1.0.0",
+  "description": "The Frontend of https://github.com/nladuo/visit_analytics",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack && webpack -p",
+    "dev": "webpack --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nladuo/visit_analytics.git"
+  },
+  "author": "Kalen Blue",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nladuo/visit_analytics/issues"
+  },
+  "homepage": "https://github.com/nladuo/visit_analytics#readme",
+  "dependencies": {
+    "jquery": "^3.1.1"
+  },
+  "devDependencies": {
+    "babel-core": "^6.23.1",
+    "babel-loader": "^6.3.2",
+    "babel-preset-es2015": "^6.22.0",
+    "webpack": "^2.2.1",
+    "webpack-dev-server": "^2.4.1"
+  }
+}
