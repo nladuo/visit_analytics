@@ -16,21 +16,17 @@ func MakeRoutes(router *gin.Engine) {
 
 	router.Static("/static/js", "./www/js")
 	router.Static("/static/css", "./www/css")
+	router.Static("/static/imgs", "./www/imgs")
 
-	router.GET("/", loginTemplate)
-	router.GET("/manage", manageTemplate)
+	authorized := router.Group("/manage", gin.BasicAuth(gin.Accounts{
+		ADMIN_UNAME: ADMIN_PASS,
+	}))
 
-	router.POST("/api/login", apiLogin)
-	router.GET("/api/hosts", apiGetHosts)
-	router.GET("/api/pages", apiGetPages)
-	router.GET("/api/daily_records", apiGetDailyRecords)
+	authorized.GET("/", manageTemplate)
 
-}
-
-func loginTemplate(c *gin.Context) {
-	c.HTML(http.StatusOK, "login.tmpl", gin.H{
-		"analytics_url": "http://localhost:3000/analytics.js",
-	})
+	authorized.GET("/api/hosts", apiGetHosts)
+	authorized.GET("/api/pages", apiGetPages)
+	authorized.GET("/api/daily_records/", apiGetDailyRecords)
 }
 
 func manageTemplate(c *gin.Context) {
@@ -39,18 +35,27 @@ func manageTemplate(c *gin.Context) {
 	})
 }
 
-func apiLogin(c *gin.Context) {
-
-}
-
 func apiGetHosts(c *gin.Context) {
-
+	showResponse(c, 0, "success", findHosts())
 }
 
 func apiGetPages(c *gin.Context) {
-
+	host := c.DefaultQuery("host", "")
+	if host == "all" {
+		showResponse(c, 0, "success", findAllPages())
+	} else {
+		showResponse(c, 0, "success", findPages(host))
+	}
 }
 
 func apiGetDailyRecords(c *gin.Context) {
 
+}
+
+func showResponse(c *gin.Context, code int, msg string, data interface{}) {
+	c.JSON(http.StatusOK, gin.H{
+		"code": code,
+		"msg":  msg,
+		"data": data,
+	})
 }

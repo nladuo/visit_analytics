@@ -24,6 +24,7 @@ func main() {
 
 	// for testing
 	router.StaticFile("/test", "./www/test.html")
+	router.StaticFile("/test2", "./www/test.html")
 
 	// for web displaying
 	MakeRoutes(router)
@@ -41,7 +42,7 @@ func main() {
 
 // record according to Request.Referer()
 func analyse(c *gin.Context) {
-	referer := c.Request.Referer()
+	referer := TrimUrl(c.Request.Referer())
 	host_name := GetHostName(referer)
 	if len(referer) == 0 || host_name == "" {
 		return

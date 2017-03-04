@@ -6,6 +6,12 @@ import (
 	"github.com/PuerkitoBio/goquery"
 )
 
+func TrimUrl(url string) string {
+	url = strings.TrimRight(url, "/")
+	url = strings.TrimRight(url, "/?")
+	return url
+}
+
 // parse hostname from url
 func GetHostName(url string) string {
 	host_name := strings.TrimLeft(url, "http://")

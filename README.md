@@ -4,6 +4,9 @@
 ## STATUS
 正在编写中...
 
+## 截图
+![screenshot](./screenshot.png)
+
 ## 使用
 ### 下载安装
 ``` sh

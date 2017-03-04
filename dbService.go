@@ -51,3 +51,29 @@ func findPage(url string) Page {
 
 	return page
 }
+
+func findHosts() []Host {
+	hosts := []Host{}
+
+	db := GetDB()
+	db.Find(&hosts)
+	return hosts
+}
+
+func findPages(host string) []Page {
+	pages := []Page{}
+
+	db := GetDB()
+	db.Where("host = ?", host).Find(&pages)
+
+	return pages
+}
+
+func findAllPages() []Page {
+	pages := []Page{}
+
+	db := GetDB()
+	db.Find(&pages)
+
+	return pages
+}

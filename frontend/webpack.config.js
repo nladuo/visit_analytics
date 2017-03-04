@@ -1,8 +1,7 @@
 var path = require('path');
 module.exports = {
   entry:  {
-    login: './src/login.js',
-    manage: './src/manage.js'
+    main: './src/main.js'
   },
   output: {
     path: path.join(__dirname, '../www/js'),
