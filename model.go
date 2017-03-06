@@ -17,10 +17,20 @@ type Page struct {
 
 // table object mapping: daily_records
 type DailyRecord struct {
-	Id    int `gorm:"primary_key";"AUTO_INCREMENT"`
-	Url   string
-	Date  string
-	Count int
+	Id        int `gorm:"primary_key";"AUTO_INCREMENT"`
+	Url       string
+	Date      string
+	TimeStamp int64
+	Count     int
+}
+
+// table object mapping: monthly_record
+type MonthlyRecord struct {
+	Id        int `gorm:"primary_key";"AUTO_INCREMENT"`
+	Url       string
+	Date      string
+	TimeStamp int64
+	Count     int
 }
 
 type Visit struct {

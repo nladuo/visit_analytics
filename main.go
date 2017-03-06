@@ -64,4 +64,5 @@ func handleVisit(visit Visit) {
 	recordHost(visit)
 	recordPage(visit)
 	recordDailyRecord(visit)
+	recordMonthlyRecord(visit)
 }

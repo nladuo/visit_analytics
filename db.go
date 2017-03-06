@@ -33,6 +33,10 @@ func InitDB() {
 		db.CreateTable(&DailyRecord{})
 	}
 
+	if (!db.HasTable(&MonthlyRecord{})) {
+		db.CreateTable(&MonthlyRecord{})
+	}
+
 }
 
 func connectDB() error {

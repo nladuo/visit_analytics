@@ -34,13 +34,32 @@ func recordDailyRecord(visit Visit) {
 	db.Where("url = ? && date = ?", visit.Referer, today).Find(&daily_record)
 	if daily_record.Id == 0 {
 		db.Create(&DailyRecord{
-			Url:   visit.Referer,
-			Date:  today,
-			Count: 1,
+			Url:       visit.Referer,
+			Date:      today,
+			TimeStamp: time.Now().Unix(),
+			Count:     1,
 		})
 	} else { // count plus one
 		daily_record.Count += 1
 		db.Save(&daily_record)
+	}
+}
+
+func recordMonthlyRecord(visit Visit) {
+	var monthly_record MonthlyRecord
+	this_month := time.Now().Format("2006-01")
+
+	db.Where("url = ? && date = ?", visit.Referer, this_month).Find(&monthly_record)
+	if monthly_record.Id == 0 {
+		db.Create(&MonthlyRecord{
+			Url:       visit.Referer,
+			Date:      this_month,
+			TimeStamp: time.Now().Unix(),
+			Count:     1,
+		})
+	} else { // count plus one
+		monthly_record.Count += 1
+		db.Save(&monthly_record)
 	}
 }
 
