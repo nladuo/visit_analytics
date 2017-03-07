@@ -1,7 +1,9 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/gin-gonic/gin"
 )
@@ -14,9 +16,7 @@ const (
 func MakeRoutes(router *gin.Engine) {
 	router.LoadHTMLGlob("frontend/templates/*")
 
-	router.Static("/static/js", "./www/js")
-	router.Static("/static/css", "./www/css")
-	router.Static("/static/imgs", "./www/imgs")
+	router.StaticFS("/static", http.Dir("./www"))
 
 	authorized := router.Group("/manage", gin.BasicAuth(gin.Accounts{
 		ADMIN_UNAME: ADMIN_PASS,
@@ -26,7 +26,7 @@ func MakeRoutes(router *gin.Engine) {
 
 	authorized.GET("/api/hosts", apiGetHosts)
 	authorized.GET("/api/pages", apiGetPages)
-	authorized.GET("/api/daily_records/", apiGetDailyRecords)
+	authorized.GET("/api/records", apiGetRecords)
 }
 
 func manageTemplate(c *gin.Context) {
@@ -48,8 +48,26 @@ func apiGetPages(c *gin.Context) {
 	}
 }
 
-func apiGetDailyRecords(c *gin.Context) {
+func apiGetRecords(c *gin.Context) {
+	url := c.DefaultQuery("url", "")
+	_type := c.DefaultQuery("type", "0")
+	date := c.DefaultQuery("date", "")
 
+	//parse time
+	tm, err := time.Parse("2006-01-02", date)
+	if err != nil {
+		showResponse(c, 1, "parse date error", "")
+		fmt.Println(err.Error())
+		return
+	}
+
+	if _type == "0" {
+		showResponse(c, 0, "success", searchDailyRecords(url, tm))
+	} else if _type == "1" {
+		showResponse(c, 0, "success", searchMonthlyRecords(url, tm))
+	} else {
+		showResponse(c, 1, "error paramers", "")
+	}
 }
 
 func showResponse(c *gin.Context, code int, msg string, data interface{}) {

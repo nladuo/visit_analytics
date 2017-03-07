@@ -1,5 +1,3 @@
-import $ from "jquery"
-
 export default {
   get(url, data, _emit) {
     this.request("GET", url, data, _emit);

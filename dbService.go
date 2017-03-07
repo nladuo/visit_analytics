@@ -1,6 +1,10 @@
 package main
 
-import "time"
+import (
+	"math/rand"
+	"strconv"
+	"time"
+)
 
 func recordHost(visit Visit) {
 	var count int
@@ -95,4 +99,67 @@ func findAllPages() []Page {
 	db.Find(&pages)
 
 	return pages
+}
+
+func searchDailyRecords(url string, tm time.Time) []DailyRecord {
+	dayly_records := []DailyRecord{}
+
+	tomorrow := tm.AddDate(0, 0, 1)
+	last_month := tm.AddDate(0, -1, -1)
+
+	db := GetDB()
+	db.Order("time_stamp asc").Where("url = ? && time_stamp <= ? && time_stamp >= ?",
+		url, tomorrow.Unix(), last_month.Unix()).Find(&dayly_records)
+
+	return dayly_records
+}
+
+func searchMonthlyRecords(url string, tm time.Time) []MonthlyRecord {
+	monthly_records := []MonthlyRecord{}
+
+	tomorrow := tm.AddDate(0, 0, 1)
+	last_year := tm.AddDate(-1, -1, 0)
+
+	db := GetDB()
+
+	db.Order("time_stamp asc").Where("url = ? && time_stamp <= ? && time_stamp >= ?",
+		url, tomorrow.Unix(), last_year.Unix()).Find(&monthly_records)
+
+	return monthly_records
+}
+
+func generateRandomRecords() {
+	now_str := strconv.FormatInt(time.Now().UnixNano(), 10)
+	url := "http://localhost:3000/" + now_str
+	db := GetDB()
+
+	//create host
+	db.Create(&Host{
+		HostName: "http://localhost:3000/",
+	})
+
+	//create dailyrecord record
+	now := time.Now()
+	total_count := 0
+	for i := 0; i < 40; i++ {
+		tm := now.AddDate(0, 0, i*(-1))
+		rand_num := rand.Intn(100)
+		total_count += rand_num
+		db.Create(&DailyRecord{
+			Url:       url,
+			Date:      tm.Format("2006-01-02"),
+			TimeStamp: tm.Unix(),
+			Count:     rand_num,
+		})
+
+	}
+
+	//create page
+	db.Create(&Page{
+		Host:       "http://localhost:3000/",
+		Url:        url,
+		Title:      now_str,
+		TotalCount: total_count,
+	})
+
 }

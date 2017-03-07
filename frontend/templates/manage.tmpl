@@ -7,13 +7,20 @@
     <script type="text/javascript" src="/static/js/vue.min.js"></script>
     <link rel="stylesheet" href="/static/css/bootstrap.min.css">
     <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/bootstrap-datetimepicker.min.css">
+    <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/static/js/bootstrap-datetimepicker.min.js"></script>
     <script type="text/javascript" src="{{ .analytics_url }}"></script>
+    <script type="text/javascript" src="/static/js/echarts.min.js"></script>
+
   </head>
   <body>
     <div id="loading" class="loading" style="display: none">
         <img src="/static/imgs/loadingBar.gif"/>
     </div>
     <div class="container" id="app">
+      <!-- 查找框 -->
       <div class="form-group" role="form">
          <div class="input-group">
            <select class="form-control" placeholder="选择域名" v-model="selectedHost">
@@ -26,7 +33,8 @@
          </div>
       </div>
 
-      <table  class="table table-hover table-striped table-bordered">
+      <!-- 显示所有网页 -->
+      <table class="table table-hover table-striped table-bordered">
         <thead>
           <tr>
             <th>网址</th>
@@ -41,12 +49,37 @@
             <td>[[ page.Title ]]</td>
             <td>[[ page.TotalCount ]]</td>
             <td>
-              <button class="btn btn-sm btn-warning">查看每日记录</button>
+              <button class="btn btn-sm btn-warning" @click="showDetail(page.Url)">查看统计图</button>
             </td>
           </tr>
         </tbody>
       </table>
 
+      <!-- 模态框 -->
+      <div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="detailModalLabel">[[ selectedUrl ]]</h4>
+                </div>
+                <div class="modal-body">
+                  <div class="form-inline">
+                      <label class="control-label">跨度:</label>
+                      <select style="width:120px;" v-model="selectedType" class="form-control">
+                          <option value="0">按月</option>
+                          <option value="1">按年</option>
+                      </select>
+                      <label class="control-label">截止时间</label>
+                      <input type="text" class="form-control" id="date_selected" />
+                      <button @click="getRecords" class="btn btn-sm btn-primary">查询</button>
+                  </div><br>
+                  <!-- 图表 -->
+                  <div id="record_chart" style="width: 560px;height:400px;"></div>
+                </div>
+            </div>
+        </div>
+      </div>
     </div>
     <script type="text/javascript" src="/static/js/main.bundle.js"></script>
   </body>

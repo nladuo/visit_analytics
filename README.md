@@ -2,10 +2,13 @@
 自用的网站访问量统计工具
 
 ## STATUS
-正在编写中...
+正在测试中...
 
 ## 截图
+### 总访问量
 ![screenshot](./screenshot.png)
+### 显示日(月)访问量
+![screenshot2](./screenshot2.png)
 
 ## 使用
 ### 下载安装

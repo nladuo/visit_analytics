@@ -12,6 +12,7 @@ var (
 
 func main() {
 	InitDB()
+	generateRandomRecords()
 
 	router := gin.Default()
 

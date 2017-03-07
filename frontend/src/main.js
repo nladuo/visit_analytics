@@ -1,6 +1,8 @@
 "use strict"
 
 import Api from "./utils/api"
+import { drawChart } from "./chart"
+import { getToday, initDatePicker } from "./datepicker"
 
 Vue.config.delimiters = ['[[', ']]']
 
@@ -9,11 +11,16 @@ new Vue({
   data: {
     hosts: [],
     pages: [],
-    selectedHost: ""
+    selectedUrl: "",
+    selectedHost: "",
+    selectedType: "0",
+    dates: [],
+    counts: []
   },
   ready() {
-    this.getHosts()
-
+    initDatePicker();
+    drawChart(this.dates, this.counts);
+    this.getHosts();
   },
   methods: {
     getHosts() {
@@ -22,7 +29,6 @@ new Vue({
           this.hosts = data.data;
         }
       })
-
     },
 
     getPages() {
@@ -32,11 +38,33 @@ new Vue({
           this.pages = data.data;
         }
       })
-
     },
 
-    getDailyRecords() {
+    getRecords() {
 
-    }
+      Api.get("/api/records", {
+        date: $("#date_selected").val(),
+        type: this.selectedType,
+        url: this.selectedUrl
+      }, (data) => {
+        this.dates = [];
+        this.counts = [];
+
+        data.data.forEach((record)=>{
+          this.dates.push(record.Date);
+          this.counts.push(record.Count);
+        })
+        console.log(data);
+        drawChart(this.dates, this.counts);
+        $("#detailModal").modal('show');
+      })
+    },
+
+    showDetail(url) {
+      $("#date_selected").val(getToday())
+      this.selectedUrl = url;
+      this.selectedType = "0";
+      this.getRecords();
+    },
   }
 })
