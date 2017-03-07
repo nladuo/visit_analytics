@@ -15,7 +15,6 @@ export const drawChart = (dates, counts) => {
       },
       xAxis : [{
           type : 'category',
-          // boundaryGap : false,
           data : dates,
           splitLine: {
               show: false
