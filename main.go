@@ -12,7 +12,8 @@ var (
 
 func main() {
 	InitDB()
-	generateRandomRecords()
+
+	// generateRandomRecords() // for generate fake daily_record
 
 	router := gin.Default()
 
