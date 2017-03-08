@@ -24,7 +24,7 @@ func GetHostName(url string) string {
 	return strs[0]
 }
 
-//
+// get title from database or by httpClient
 func GetTitle(url string) string {
 	// get title from database
 	page := findPage(url)
