@@ -23,16 +23,19 @@ make prepare 		# 下载库文件
 CREATE DATABASE IF NOT EXISTS `visit_analytics` DEFAULT CHARSET utf8 COLLATE utf8_general_ci;
 ```
 
-### 配置数据库
-打开db.go, 配置mysql。
-``` go
-const (
-	DB_USER = "root"
-	DB_PASS = "root"
-	DB_HOST = "localhost"
-	DB_PORT = "3306"
-	DBNAME  = "visit_analytics"
-)
+### 配置文件
+打开config,yaml, 配置mysql与访问密码。
+``` yaml
+manage:
+  username: nladuo
+  password: nladuo
+db:
+  username: root
+  password: root
+  port: 3306
+  host: localhost
+  dbname: visit_analytics
+deploy_host: localhost:3000
 ```
 
 ### 安装运行
@@ -41,7 +44,7 @@ make && ./visit_analytics
 ```
 
 ## 使用
-添加`<script type="text/javascript" src="http://localhost:3000/analytics.js"></script>`到要统计的网页中。
+添加`<script type="text/javascript" src="http://localhost:3000/analytics.js"></script>`到要统计的网页中,(将localhost替换成你部署的服务器host)。
 
 ## LICENSE
 MIT
