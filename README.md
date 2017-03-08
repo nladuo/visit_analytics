@@ -45,7 +45,7 @@ make && ./visit_analytics config.yaml
 
 ### 部署
 ``` sh
-./deploy_visit_analytics.sh
+./deploy.sh
 ```
 
 ## 使用
