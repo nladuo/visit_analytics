@@ -5,14 +5,6 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
-const (
-	DB_USER = "root"
-	DB_PASS = "root"
-	DB_HOST = "localhost"
-	DB_PORT = "3306"
-	DBNAME  = "visit_analytics"
-)
-
 var db *gorm.DB
 
 func InitDB() {
@@ -40,8 +32,10 @@ func InitDB() {
 }
 
 func connectDB() error {
+	config := GetConfig()
 	var err error
-	db, err = gorm.Open("mysql", DB_USER+":"+DB_PASS+"@tcp("+DB_HOST+":"+DB_PORT+")/"+DBNAME+"?charset=utf8&parseTime=True")
+	db, err = gorm.Open("mysql", config.DB.Username+":"+config.DB.Password+
+		"@tcp("+config.DB.Host+":"+config.DB.Host+")/"+config.DB.DBName+"?charset=utf8&parseTime=True")
 
 	return err
 }

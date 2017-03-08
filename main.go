@@ -1,7 +1,9 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
+	"os"
 
 	"github.com/gin-gonic/gin"
 )
@@ -11,6 +13,16 @@ var (
 )
 
 func main() {
+
+	// parse config.yaml
+	config := GetConfig()
+	if len(os.Args) != 2 {
+		fmt.Fprintln(os.Stderr, "error parameters num. Usage: ./visit_analytics config.yaml")
+		os.Exit(1)
+	}
+	config.parse(os.Args[1])
+
+	// init database
 	InitDB()
 
 	// generateRandomRecords() // for generate fake daily_record

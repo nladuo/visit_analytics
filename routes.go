@@ -8,18 +8,15 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-const (
-	ADMIN_UNAME = "nladuo" // the admin username
-	ADMIN_PASS  = "nladuo" // the admin password
-)
-
 func MakeRoutes(router *gin.Engine) {
+	config := GetConfig()
+
 	router.LoadHTMLGlob("frontend/templates/*")
 
 	router.StaticFS("/static", http.Dir("./www"))
 
 	authorized := router.Group("/manage", gin.BasicAuth(gin.Accounts{
-		ADMIN_UNAME: ADMIN_PASS,
+		config.Manage.Username: config.Manage.Password,
 	}))
 
 	authorized.GET("/", manageTemplate)
@@ -31,7 +28,7 @@ func MakeRoutes(router *gin.Engine) {
 
 func manageTemplate(c *gin.Context) {
 	c.HTML(http.StatusOK, "manage.tmpl", gin.H{
-		"analytics_url": "http://localhost:3000/analytics.js",
+		"analytics_url": "http://" + config.DeployHost + "/analytics.js",
 	})
 }
 
