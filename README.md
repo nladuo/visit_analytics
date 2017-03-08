@@ -40,7 +40,12 @@ deploy_host: localhost:3000
 
 ### 安装运行
 ``` sh
-make && ./visit_analytics
+make && ./visit_analytics config.yaml
+```
+
+### 部署
+``` sh
+./deploy_visit_analytics.sh
 ```
 
 ## 使用
