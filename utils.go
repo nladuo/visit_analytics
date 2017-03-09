@@ -14,8 +14,7 @@ func TrimUrl(url string) string {
 
 // parse hostname from url
 func GetHostName(url string) string {
-	host_name := strings.TrimLeft(url, "http://")
-	host_name = strings.TrimLeft(host_name, "https://")
+	host_name := strings.Split(url, "//")[1]
 
 	strs := strings.Split(host_name, "/")
 	if len(strs) == 0 {
