@@ -6,6 +6,10 @@ import (
 	"github.com/PuerkitoBio/goquery"
 )
 
+const (
+	ERR_HOSTNAME = "Eror HostName"
+)
+
 func TrimUrl(url string) string {
 	url = strings.TrimRight(url, "/")
 	url = strings.TrimRight(url, "/?")
@@ -14,11 +18,16 @@ func TrimUrl(url string) string {
 
 // parse hostname from url
 func GetHostName(url string) string {
-	host_name := strings.Split(url, "//")[1]
-
-	strs := strings.Split(host_name, "/")
+	strs := strings.Split(url, "//")
 	if len(strs) == 0 {
-		return ""
+		return ERR_HOSTNAME
+	}
+
+	host_name := strs[1]
+
+	strs = strings.Split(host_name, "/")
+	if len(strs) == 0 {
+		return ERR_HOSTNAME
 	}
 	return strs[0]
 }
