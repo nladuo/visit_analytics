@@ -1,9 +1,6 @@
 # visit_analytics
 自用的网站访问量统计工具
 
-## STATUS
-正在测试中...
-
 ## 截图
 ### 总访问量
 ![screenshot](./screenshot.png)
