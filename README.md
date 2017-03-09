@@ -36,6 +36,7 @@ db:
   host: localhost
   dbname: visit_analytics
 deploy_host: localhost:3000
+run_at: :3000
 ```
 
 ### 安装运行
