@@ -46,8 +46,8 @@ make && ./visit_analytics config.yaml
 ./deploy.sh
 ```
 
-## 使用
-添加`<script type="text/javascript" src="http://localhost:3000/analytics.js"></script>`到要统计的网页中。(将localhost:3000替换成你部署的服务器地址)
+## 使用案例
+见[test.html](./www/test.html)，添加`<script type="text/javascript" src="http://localhost:3000/analytics.js"></script>`到要统计的网页中。(将localhost:3000替换成你部署的服务器地址)
 
 ## LICENSE
 MIT
