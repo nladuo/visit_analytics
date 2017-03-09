@@ -51,7 +51,7 @@ func main() {
 		}
 	}()
 
-	router.Run(":3000")
+	router.Run(config.RunAt)
 }
 
 // record according to Request.Referer()

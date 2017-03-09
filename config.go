@@ -15,11 +15,12 @@ type Config struct {
 	DB struct {
 		Username string
 		Password string
-		Port     int
+		Port     int64
 		Host     string
 		DBName   string `yaml:"dbname"`
 	} `yaml:"db"`
 	DeployHost string `yaml:"deploy_host"`
+	RunAt      string `yaml:"run_at"`
 }
 
 var config Config

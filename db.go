@@ -1,6 +1,8 @@
 package main
 
 import (
+	"strconv"
+
 	_ "github.com/Go-SQL-Driver/MySQL"
 	"github.com/jinzhu/gorm"
 )
@@ -35,7 +37,8 @@ func connectDB() error {
 	config := GetConfig()
 	var err error
 	db, err = gorm.Open("mysql", config.DB.Username+":"+config.DB.Password+
-		"@tcp("+config.DB.Host+":"+config.DB.Host+")/"+config.DB.DBName+"?charset=utf8&parseTime=True")
+		"@tcp("+config.DB.Host+":"+strconv.FormatInt(config.DB.Port, 10)+")/"+
+		config.DB.DBName+"?charset=utf8&parseTime=True")
 
 	return err
 }
