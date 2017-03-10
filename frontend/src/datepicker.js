@@ -1,10 +1,5 @@
 export const getToday = () => {
-  var d = new Date();
-  //fromat for yyyy-mm-dd
-  var month = (((d.getMonth() + 1) + "").length == 1 ? "0" : "") + (d.getMonth() + 1);
-  var date = ((d.getDate() + "").length == 1 ? "0": "") + d.getDate();
-  var date_str = d.getFullYear() + "-" + (month) + "-" + date;
-  return date_str;
+  return (new Date()).Format("yyyy-MM-dd");
 }
 
 export const initDatePicker = () => {
