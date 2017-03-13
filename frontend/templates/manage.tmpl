@@ -35,7 +35,7 @@
       </div>
 
       <!-- 显示所有网页 -->
-      <table class="table table-hover table-striped table-bordered">
+      <table style="table-layout:fixed" class="table table-condensed table-bordered table-hover table-striped">
         <thead>
           <tr>
             <th>网址</th>
@@ -50,7 +50,7 @@
             <td>[[ page.Title ]]</td>
             <td>[[ page.TotalCount ]]</td>
             <td>
-              <button class="btn btn-sm btn-warning" @click="showDetail(page.Url)">查看统计图</button>
+              <button class="btn btn-sm btn-warning" @click="showDetail(page)">查看统计图</button>
             </td>
           </tr>
         </tbody>
@@ -62,7 +62,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="detailModalLabel">[[ selectedUrl ]]</h4>
+                    <h4 class="modal-title" id="detailModalLabel">[[ selectedTitle ]]</h4>
                 </div>
                 <div class="modal-body">
                   <div class="form-inline">

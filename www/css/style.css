@@ -31,3 +31,9 @@ td,th {
   text-align: center;
   vertical-align: middle;
 }
+
+td {
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+}

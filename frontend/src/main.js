@@ -12,6 +12,7 @@ new Vue({
     hosts: [],
     pages: [],
     selectedUrl: "",
+    selectedTitle: "",
     selectedHost: "",
     selectedType: "0",
     dates: [],
@@ -60,9 +61,10 @@ new Vue({
       })
     },
 
-    showDetail(url) {
+    showDetail(page) {
       $("#date_selected").val(getToday())
-      this.selectedUrl = url;
+      this.selectedUrl = page.Url;
+      this.selectedTitle = page.Title;
       this.selectedType = "0";
       this.getRecords();
     },

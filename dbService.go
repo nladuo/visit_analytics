@@ -87,7 +87,7 @@ func findPages(host string) []Page {
 	pages := []Page{}
 
 	db := GetDB()
-	db.Where("host = ?", host).Find(&pages)
+	db.Order("total_count desc").Where("host = ?", host).Find(&pages)
 
 	return pages
 }
@@ -96,7 +96,7 @@ func findAllPages() []Page {
 	pages := []Page{}
 
 	db := GetDB()
-	db.Find(&pages)
+	db.Order("total_count desc").Find(&pages)
 
 	return pages
 }
@@ -128,6 +128,7 @@ func searchMonthlyRecords(url string, tm time.Time) []MonthlyRecord {
 	return monthly_records
 }
 
+// generate random records for testing
 func generateRandomRecords() {
 	now_str := strconv.FormatInt(time.Now().UnixNano(), 10)
 	url := "http://localhost:3000/" + now_str
