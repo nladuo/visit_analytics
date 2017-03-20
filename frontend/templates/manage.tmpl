@@ -67,7 +67,7 @@
                 <div class="modal-body">
                   <div class="form-inline">
                       <label class="control-label">跨度:</label>
-                      <select style="width:120px;" v-model="selectedType" class="form-control">
+                      <select v-model="selectedType" class="form-control time-type">
                           <option value="0">按月</option>
                           <option value="1">按年</option>
                       </select>
@@ -76,7 +76,7 @@
                       <button @click="getRecords" class="btn btn-sm btn-primary">查询</button>
                   </div><br>
                   <!-- 图表 -->
-                  <div id="record_chart" style="width: 560px;height:400px;"></div>
+                  <div id="record_chart" style="width: 560px;height:340px;"></div>
                 </div>
             </div>
         </div>
