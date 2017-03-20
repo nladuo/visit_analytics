@@ -1,5 +1,8 @@
 export const drawChart = (dates, counts) => {
-  $("#record_chart").css("width", ($("#detailModal").width() - 60) + "px")
+  if ($(window).width() < 768) {
+    $("#record_chart").css("width", ($("#detailModal").width() - 60) + "px")
+  }
+
   var chart = echarts.init(document.getElementById('record_chart'));
   var option = {
       tooltip : {
@@ -41,7 +44,11 @@ export const drawChart = (dates, counts) => {
   };
   chart.setOption(option);
   window.onresize = () => {
-    $("#record_chart").css("width", ($("#detailModal").width() - 60) + "px")
+    if ($(window).width() < 768) {
+      $("#record_chart").css("width", ($("#detailModal").width() - 60) + "px")
+    } else {
+      $("#record_chart").css("width", "560px")
+    }
     chart.resize();
   }
 }
