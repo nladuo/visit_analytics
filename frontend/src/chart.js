@@ -1,5 +1,6 @@
 export const drawChart = (dates, counts) => {
-  var myChart = echarts.init(document.getElementById('record_chart'));
+  $("#record_chart").css("width", ($("#detailModal").width() - 60) + "px")
+  var chart = echarts.init(document.getElementById('record_chart'));
   var option = {
       tooltip : {
           trigger: 'axis'
@@ -38,5 +39,9 @@ export const drawChart = (dates, counts) => {
           data: counts
       }]
   };
-  myChart.setOption(option);
+  chart.setOption(option);
+  window.onresize = () => {
+    $("#record_chart").css("width", ($("#detailModal").width() - 60) + "px")
+    chart.resize();
+  }
 }

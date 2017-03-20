@@ -56,8 +56,9 @@ new Vue({
           this.counts.push(record.Count);
         })
         console.log(data);
-        drawChart(this.dates, this.counts);
+
         $("#detailModal").modal('show');
+        drawChart(this.dates, this.counts);
       })
     },
 
