@@ -32,7 +32,6 @@ export const drawChart = (dates, counts) => {
       series : [{
           name:'访问量',
           type:'line',
-          stack: '总量',
           symbolSize: 8,
           lineStyle: {
               normal: {
