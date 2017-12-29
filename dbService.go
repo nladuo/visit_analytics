@@ -87,7 +87,7 @@ func findPages(host string) []Page {
 	pages := []Page{}
 
 	db := GetDB()
-	db.Order("total_count desc").Where("host = ?", host).Find(&pages)
+	db.Order("total_count desc").Where("host = ?", host).Limit(30).Find(&pages)
 
 	return pages
 }
@@ -96,7 +96,7 @@ func findAllPages() []Page {
 	pages := []Page{}
 
 	db := GetDB()
-	db.Order("total_count desc").Find(&pages)
+	db.Order("total_count desc").Limit(30).Find(&pages)
 
 	return pages
 }
