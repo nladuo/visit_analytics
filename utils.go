@@ -15,7 +15,7 @@ func TrimUrl(url string) string {
 // parse hostname from url
 func GetHostName(url string) string {
 	strs := strings.Split(url, "//")
-	if len(strs) == 0 {
+	if len(strs) < 2 {
 		return ""
 	}
 
