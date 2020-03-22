@@ -7,7 +7,7 @@ export default {
   },
 
   request(method, url, data, _emit) {
-    url = "/api" + url
+    url = "/manage" + url
 
     $('#loading').css('display','block');
 
